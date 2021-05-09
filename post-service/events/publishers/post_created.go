@@ -2,7 +2,7 @@ package publishers
 
 import (
 	"encoding/json"
-	. "go-srv/pkg/redis"
+	. "post-service/pkg/redis"
 )
 
 type PostCreatedEventData struct {

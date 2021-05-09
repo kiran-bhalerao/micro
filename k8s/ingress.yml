@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: nodeapp.dev
+      http:
+        paths:
+          - path: /api/post
+            backend:
+              serviceName: post-srv
+              servicePort: 3000
+          - path: /api/user
+            backend:
+              serviceName: user-srv
+              servicePort: 9000

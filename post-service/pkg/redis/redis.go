@@ -3,6 +3,8 @@ package redis
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"os"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -10,8 +12,9 @@ import (
 var ctx = context.Background()
 
 func NewRedisClient() *redis.Client {
+	REDIS_HOST := os.Getenv("REDIS_HOST")
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     fmt.Sprintf("%s:6379", REDIS_HOST),
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

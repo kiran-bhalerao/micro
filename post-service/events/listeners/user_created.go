@@ -2,7 +2,7 @@ package listeners
 
 import (
 	"fmt"
-	. "go-srv/pkg/redis"
+	. "post-service/pkg/redis"
 )
 
 type EventListener struct {

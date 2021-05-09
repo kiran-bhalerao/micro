@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: micro
+build:
+  local:
+    push: false
+  artifacts:
+    - image: bhaleraok65/post-srv
+      context: post-service
+      docker:
+        dockerfile: Dockerfile
+    # - image: bhaleraok65/post-srv
+    #   context: post-service
+    #   custom:
+    #     buildCommand: ./build.sh
+    #     dependencies:
+    #       paths:
+    #         - .
+    - image: bhaleraok65/user-srv
+      context: user-service
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+      - k8s/*

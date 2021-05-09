@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - name: user
+          image: bhaleraok65/user-srv
+          # imagePullPolicy: Always
+          env:
+            - name: REDIS_HOST
+              value: redis-srv
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-srv
+  labels:
+    app: user-srv
+spec:
+  type: LoadBalancer
+  selector:
+    app: user
+  ports:
+    - name: user
+      protocol: TCP
+      port: 9000
+      targetPort: 9000

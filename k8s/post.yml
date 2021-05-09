@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post
+  template:
+    metadata:
+      labels:
+        app: post
+    spec:
+      containers:
+        - name: post
+          image: bhaleraok65/post-srv
+          # imagePullPolicy: Always
+          env:
+            - name: REDIS_HOST
+              value: redis-srv
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-srv
+  labels:
+    app: post-srv
+spec:
+  type: LoadBalancer
+  selector:
+    app: post
+  ports:
+    - name: post
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
